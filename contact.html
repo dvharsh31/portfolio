@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Harsh Vardhan Dubey</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background: #0f1117;
+            color: #f5f7fa;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Cursor */
+        .cursor {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            position: fixed;
+            background: radial-gradient(circle, #ff4d6d, #4cc9f0);
+            box-shadow: 0 0 25px #ff4d6d;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+
+        /* Background particles */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -2;
+            filter: blur(3px) brightness(1.1);
+            opacity: 0.7;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #d4d4d8;
+            margin-left: 25px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        .logo {
+            font-weight: 600;
+        }
+
+        /* Section */
+        .section {
+            width: 85%;
+            max-width: 1200px;
+            margin: 200px auto;
+        }
+
+        /* Glass Container */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 30px;
+            padding: 70px;
+            backdrop-filter: blur(50px);
+            box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Heading */
+        h1 {
+            font-size: 48px;
+            background: linear-gradient(90deg, #ff4d6d, #4cc9f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            animation: glow 4s infinite alternate;
+        }
+
+        @keyframes glow {
+            0% {
+                filter: drop-shadow(0 0 5px #ff4d6d);
+            }
+
+            100% {
+                filter: drop-shadow(0 0 15px #4cc9f0);
+            }
+        }
+
+        .subtitle {
+            color: #a1a1aa;
+            margin-bottom: 40px;
+        }
+
+        /* Floating Inputs */
+        .input-group {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .input-group input,
+        .input-group textarea {
+            width: 100%;
+            padding: 14px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group label {
+            position: absolute;
+            top: 14px;
+            left: 15px;
+            color: #aaa;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus {
+            border: 1px solid #4cc9f0;
+            box-shadow: 0 0 15px rgba(76, 201, 240, 0.4);
+        }
+
+        .input-group input:focus+label,
+        .input-group input:not(:placeholder-shown)+label,
+        .input-group textarea:focus+label,
+        .input-group textarea:not(:placeholder-shown)+label {
+            top: -10px;
+            left: 10px;
+            font-size: 12px;
+            color: #4cc9f0;
+            background: #0f1117;
+            padding: 0 6px;
+        }
+
+        /* Button */
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 40px;
+            background: linear-gradient(90deg, #ff4d6d, #4cc9f0);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(76, 201, 240, 0.5);
+        }
+
+        /* Right Panel */
+        .info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.4s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+            background: linear-gradient(90deg, #ff4d6d22, #4cc9f022);
+        }
+
+        .social a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 22px;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .social a:hover {
+            color: #4cc9f0;
+            transform: scale(1.2);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 120px;
+            color: #94a3b8;
+            padding-bottom: 60px;
+        }
+
+        .social a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 20px;
+            color: white;
+            transition: 0.4s;
+        }
+
+        .social a:hover {
+            background: linear-gradient(135deg, #ff4d6d, #4cc9f0);
+            box-shadow: 0 0 25px rgba(76, 201, 240, 0.6);
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        @media(max-width:900px) {
+            body {
+                cursor: auto;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <canvas id="particles"></canvas>
+    <div class="cursor"></div>
+
+    <nav>
+        <div class="logo">codewthharsh</div>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="index.html#projects">Projects</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <div class="section">
+        <div class="contact-wrapper">
+
+            <div>
+                <h1>Let’s Create Impact</h1>
+                <p class="subtitle">Have an idea, collaboration, or opportunity? Let’s talk.</p>
+
+                <form onsubmit="showSuccess(event)">
+                    <div class="input-group">
+                        <input type="text" required placeholder=" ">
+                        <label>Your Name</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="email" required placeholder=" ">
+                        <label>Your Email</label>
+                    </div>
+
+                    <div class="input-group">
+                        <textarea required placeholder=" "></textarea>
+                        <label>Your Message</label>
+                    </div>
+
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+
+            <div class="info">
+                <div class="info-card">
+                    <h3>Email</h3>
+                    <p>hvd2004yvd@gmail.com</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Location</h3>
+                    <p>Lucknow, India</p>
+                </div>
+
+                <div class="social">
+                    <a style="text-decoration: none;" href="https://www.linkedin.com/in/harsh-vardhan-dubey-9700722a8" target="_blank">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+
+                    <a style="text-decoration: none; href="https://www.instagram.com/codewthharsh" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+
+                    <a style="text-decoration: none; href="https://www.youtube.com/@codewthharsh" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer">© 2026 Harsh Vardhan Dubey</div>
+
+    <script>
+        const cursor = document.querySelector(".cursor");
+        document.addEventListener("mousemove", e => {
+            cursor.style.left = e.clientX + "px";
+            cursor.style.top = e.clientY + "px";
+        });
+
+        function showSuccess(e) {
+            e.preventDefault();
+            alert("Message Sent Successfully 🚀");
+        }
+    </script>
+
+</body>
+
+</html>
